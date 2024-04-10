@@ -3,4 +3,19 @@
 
 {% block content  %}
 <h2>Project</h2>
+
+
+    {{ msg }}
+    {% for project in listofproject %}
+   <ul>
+
+       <li>Title:<a href="{% url 'project' project.id %}"> {{ project.title }}</a>--------{{ project.discription }}</li>
+
+   </ul>
+    {% endfor %}
+    {% if number >= 25%}
+    <h1>{{ number }}</h1>
+      {% else %}
+        <h1>The is no number</h1>
+    {% endif %}
 {% endblock %}
