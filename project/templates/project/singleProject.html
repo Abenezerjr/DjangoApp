@@ -2,7 +2,12 @@
 
 
 {% block content %}
-<h1> {{  projectObj.title}}</h1>
+<h1> {{  project.title}}</h1>
     <br>
-<h1> {{  projectObj.discription}}</h1>
+{#    we can get meny to many relation using this #}
+    {% for tag in project.tags.all %}
+   <h3>{{ tag }}</h3>
+    {% endfor %}
+    <br>
+<h1> {{  project.description}}</h1>
 {% endblock %}

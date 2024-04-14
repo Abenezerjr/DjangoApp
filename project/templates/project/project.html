@@ -4,18 +4,24 @@
 {% block content  %}
 <h2>Project</h2>
 
+    <table style=>
+    <tr>
+        <th>Project</th>
+        <th>Vote</th>
+        <th>Created</th>
+        <th>Detail</th>
+    </tr>
+        {% for project in projects %}
+            <tr>
+            <td> {{ project.title }}</td>
+            <td> {{ project.voteRatio }}</td>
+            <td> {{ project.created }}</td>
+            <td><a href="{% url 'project' project.id %}">Viwe</a></td>
+            </tr>
 
-    {{ msg }}
-    {% for project in listofproject %}
-   <ul>
+     {% endfor %}
 
-       <li>Title:<a href="{% url 'project' project.id %}"> {{ project.title }}</a>--------{{ project.discription }}</li>
+    </table>
 
-   </ul>
-    {% endfor %}
-    {% if number >= 25%}
-    <h1>{{ number }}</h1>
-      {% else %}
-        <h1>The is no number</h1>
-    {% endif %}
+
 {% endblock %}
