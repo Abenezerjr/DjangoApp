@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from .models import Project
 from .forms import AddProjectForm
 # Create your views here.
@@ -27,13 +27,53 @@ def singleProject(request,pk):
 
 
 def addProject(request):
+    """
+
+    :param request: the addProject form method is post then accept request.post data and it validate the data and send in the database with sission tokne and the database accept the form data and save it
+    :return: saved data
+    """
     form=AddProjectForm()
     if request.method == "POST":
-        form=AddProjectForm(request.POST)
+        form=AddProjectForm(request.POST) #instanc of the new form
         if form.is_valid():
             form.save()
+            return redirect("projects")
     context={
      'form':form
     }
 
     return render(request,'project/projectForm.html',context)
+
+def updateProject(request,pk):
+    """
+
+    :param request:  from request in the databes wite spacific project
+    :param pk:specific project or the project you went to be update
+    :return: updated data in the database
+    """
+    project = Project.objects.get(id=pk)
+    form=AddProjectForm(instance=project)
+
+    if request.method=='POST':
+        form=AddProjectForm(request.POST,instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+
+    context={
+        'form':form
+    }
+    return render(request,'project/projectForm.html',context)
+
+def deleteProject(request,pk):
+    project=Project.objects.get(id=pk)
+    if request.method== 'POST':
+        project.delete()
+        return redirect('projects')
+
+    context={
+        'object':project
+    }
+
+    return render(request,'project/delete.html',context)
+
