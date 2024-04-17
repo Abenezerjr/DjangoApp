@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,6 +125,8 @@ STATICFILES_DIRS =[
     BASE_DIR / 'static'
 ]
 MEDIA_ROOT=os.path.join(BASE_DIR, 'static/images') # tell were to upload pic sebmmited by user
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') #used wher we perpare upload in live srver
 
 
 
