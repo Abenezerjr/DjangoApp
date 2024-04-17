@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'project.apps.ProjectConfig' # register the aproject app in order to awere django what we are doing
+    'project.apps.ProjectConfig', # register the aproject app in order to awere django what we are doing
+    'users.apps.UsersConfig',
+
 ]
 
 MIDDLEWARE = [

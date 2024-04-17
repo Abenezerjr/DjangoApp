@@ -15,6 +15,10 @@ class AddProjectForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AddProjectForm,self).__init__(*args,**kwargs)
+        """
+        :return ;- in this class we import forms whcis we capabel to add our css style using for and it self foe that we used django widgest.altts to update spacific filed in the form
+        """
+
         #
         # self.fields['title'].widget.attrs.update({'class':'input','placeholder':'Add project title'})
         # self.fields['description'].widget.attrs.update({'class': 'input', 'placeholder': 'Add project description'})
