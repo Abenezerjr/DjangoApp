@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
+from django.conf.urls.static import static #path to find the images static used to creat a url for static file
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('project.urls')),
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
