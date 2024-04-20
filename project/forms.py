@@ -16,7 +16,7 @@ class AddProjectForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(AddProjectForm,self).__init__(*args,**kwargs)
         """
-        :return ;- in this class we import forms whcis we capabel to add our css style using for and it self foe that we used django widgest.altts to update spacific filed in the form
+        :return ;- in this class we import forms whcis we capabel to add our css style using for and it self  that we used django widgest.altts to update spacific html filed in the form
         """
 
         #
