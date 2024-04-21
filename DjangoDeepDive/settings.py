@@ -128,7 +128,7 @@ STATICFILES_DIRS =[
 ]
 MEDIA_ROOT=os.path.join(BASE_DIR, 'static/images') # tell were to upload pic sebmmited by user
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') #used wher we perpare upload in live srver
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # used wher we perpare upload in live srver
 
 
 
