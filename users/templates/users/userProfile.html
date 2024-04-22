@@ -15,17 +15,24 @@
               <p class="dev__title">{{ profile.headline }}</p>
               <p class="dev__location">{{ profile.location }}</p>
               <ul class="dev__social">
+                  {% if profile.github %}
                 <li>
                   <a title="Github" href="{{ profile.github }}" target="_blank"><i class="im im-github"></i></a>
                 </li>
+                  {% endif %}
 
+              {% if profile.linkedln %}
 
                 <li>
                   <a title="LinkedIn" href="{{ profile.linkedln }}" target="_blank"><i class="im im-linkedin"></i></a>
                 </li>
+              {% endif %}
+
+              {% if profile.PpersonaWebsite %}
                 <li>
                   <a title="Personal Website" href="{{ profile.personaWebsite }}" target="_blank"><i class="im im-globe"></i></a>
                 </li>
+              {% endif %}
               </ul>
               <a href="#" class="btn btn--sub btn--lg">Send Message </a>
             </div>
@@ -42,26 +49,29 @@
             <h3 class="devInfo__title">Skills</h3>
             <div class="devInfo__skills">
 
-              {%  for skill in profile.skill_set.all %}
-                  {% if skill.descreption %}
+              {%  for skill in topSkills %}
+
               <div class="devSkill">
                 <h4 class="devSkill__title">{{ skill }}</h4>
                 <p class="devSkill__info">
                {{ skill.descreption }}
                 </p>
               </div>
+               {% endfor %}
 
 
-          {% else %}
+
               <h3 class="devInfo__subtitle">Other Skills</h3>
               <div class="devInfo__otherSkills">
+              {% for skill in otherSkills %}
                 <span class="tag tag--pill tag--sub tag--lg">
                   <small>{{ skill }}</small>
                 </span>
+              {% endfor %}
 
               </div>
-            {% endif %}
-              {% endfor %}
+
+
             </div>
 
           </div>

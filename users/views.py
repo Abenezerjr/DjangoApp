@@ -12,8 +12,13 @@ def profile(requset):
 
 def userProfile(request,pk):
     profile=Profile.objects.get(id=pk)
+
+    topSkills=profile.skill_set.exclude(descreption__exact='')
+    otherSkills=profile.skill_set.filter(descreption='')
     context={
-        "profile":profile
+        "profile":profile,
+        'topSkills':topSkills,
+        'otherSkills':otherSkills,
     }
 
     return  render(request,'users/userProfile.html',context)

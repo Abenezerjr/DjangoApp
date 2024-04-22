@@ -1,6 +1,12 @@
 from django.db import models
 import  uuid
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save , post_delete
+from django.dispatch import receiver
+"""
+post_save:trigger anytime the whe the post or save in the database aftrer 
+"""
+
 # Create your models here.
 
 
@@ -36,3 +42,4 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
