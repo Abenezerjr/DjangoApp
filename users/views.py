@@ -9,3 +9,11 @@ def profile(requset):
      "profiles":profiles
     }
     return render(requset,'users/profile.html',context)
+
+def userProfile(request,pk):
+    profile=Profile.objects.get(id=pk)
+    context={
+        "profile":profile
+    }
+
+    return  render(request,'users/userProfile.html',context)
