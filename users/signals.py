@@ -9,7 +9,7 @@ from django.dispatch import receiver
 def createProfile(sender, instance, created, **kwargs):
     """
     :param sender: the model that send the data what model send that data
-    :param instance: the instance of taht actully triggerd this object
+    :param instance: the instance of that actully triggerd this object
     :param created: it give boolin value true or fales true if the post or a model request add in the database fales other wise
     :return:
     """
