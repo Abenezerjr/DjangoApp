@@ -2,28 +2,64 @@
 
 
 {% block content %}
-    {% if page == 'register' %}
-        <form method="POST" action="{% url 'register' %}">
-{% csrf_token %}
-            <p>Registertion form</p>
-           {{ form.as_p }}
+    <div class="auth">
+    <div class="card">
 
-            <input type="submit" value="Register">
+
+
+    {% if page == 'register' %}
+        <form method="POST" action="{% url 'register' %}" class="form auth__form">
+{% csrf_token %}
+             <p>Registertion form</p>
+            {% for field in form%}
+            <div class="form__field">
+                <label for="formInput#text">{{ field.label }}: </label>
+            {{ field }}
+{#                {% if field.help_text %}#}
+{#                <small></small>#}
+{#                {% endif %}#}
+
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                     </div>
+                {% endfor %}
+{#           {{ form.as_p }}#}
+
+
+
+          <input class="btn btn--sub btn--lg"  type="submit" value="Register">
         <p>Alrady an account <a href="{% url 'login' %}">login</a> </p>
         </form>
 
+
     {% else %}
-<form method="POST" action="{% url 'login' %}">
+<form method="POST" action="{% url 'login' %}" class="form auth__form">
 {% csrf_token %}
+<div class="form__field">
+    <label for="formInput#text">Username:</label>
 
-<input type="text" name="username" placeholder="Username">
-<input type="password" name="password" placeholder="Enter password">
-
-<input type="submit" value="login">
+<input class="input input--text"
+       id="formInput#text"
+       type="text"
+       name="username"
+       placeholder="Username">
+</div>
+    <div class="form__field">
+        <label for="formInput#password">Password:</label>
+    <input type="password"
+           class="input input--password"
+           id="formInput#password"
+           name="password"
+           placeholder="Enter password">
+      </div>
+<input  class="btn btn--sub btn--lg" type="submit" value="login">
 <p>Don't have an account <a href="{% url 'register' %}">sign up</a> </p>
 
 
 </form>
 {% endif %}
+      </div>
+    </div>
 {% endblock %}
 
