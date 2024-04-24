@@ -38,7 +38,7 @@ def addProject(request):
         form=AddProjectForm(request.POST,request.FILES) #instanc of the new form
         if form.is_valid():
             form.save()
-            return redirect("projects")
+            return redirect("account")
     context={
      'form':form
     }
@@ -60,7 +60,7 @@ def updateProject(request,pk):
         form=AddProjectForm(request.POST,request.FILES,instance=project,)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            return redirect('account')
 
     context={
         'form':form
@@ -72,7 +72,7 @@ def deleteProject(request,pk):
     project=Project.objects.get(id=pk)
     if request.method== 'POST':
         project.delete()
-        return redirect('projects')
+        return redirect('account')
 
     context={
         'object':project

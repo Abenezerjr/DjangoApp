@@ -2,10 +2,10 @@ from django.shortcuts import render ,  redirect
 from django.contrib.auth import login , authenticate ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile ,Skill
 from django.contrib import messages
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm ,EditAccountForm ,SkillForm
 # Create your views here.
 
 
@@ -51,7 +51,7 @@ def registerUser(request):
             user=form.save(commit=False) # hold a temporay user request
             user.username=user.username.lower()
             user.save()
-            messages.success(request,'wellcom!! user account was created')
+            messages.success(request,'wellcome!! user account was created')
 
             login(request,user)
             return redirect('profile')
@@ -85,4 +85,84 @@ def userProfile(request,pk):
 
     return  render(request,'users/userProfile.html',context)
 
+def userAccount(request):
+    profile=request.user.profile
+    context={
+        "profile":profile
 
+    }
+    return render(request,'users/userAccount.html',context)
+
+def editAccount(request):
+    """
+
+    :param request:
+    :return: form with instance of profile
+    """
+    profile=request.user.profile # get login user
+    form=EditAccountForm(instance=profile)  # get editform with instance of profile meas that the user detali befor
+    if request.method == 'POST': # chek request.PoSt method is send? or the user make some change ?
+        form=EditAccountForm(request.POST,request.FILES,instance=profile) #yes ? add in the for is valid
+        if form.is_valid(): # if it valid
+            form.save() # save in to the databesa
+            return redirect('account') # send to the user account
+
+    context={
+        'form':form
+    }
+
+    return render(request,'project/projectForm.html',context)
+
+
+def addSkil(request):
+    profile = request.user.profile# get profile
+    form=SkillForm() # get skillform
+    if request.method == 'POST': # check the requset is post
+        form=SkillForm(request.POST) # if it post add the user requset in the form
+        if form.is_valid(): # its valied
+            skill=form.save(commit=False) # save the form in the skile varible not in the database
+            skill.owner=profile # check the profile is the owner
+            skill.save() # save that owner
+            return  redirect('account')
+
+    context={
+        'form':form
+    }
+
+    return render(request,'project/projectForm.html',context)
+
+
+def editSkill(request,pk):
+    profile=request.user.profile
+    skill=profile.skill_set.get(id=pk)
+    form=SkillForm(instance=skill)
+
+    if request.method == 'POST':
+        form = SkillForm(request.POST,instance=skill)
+        if form.is_valid():
+            # ask=form.save(commit=False)
+            # ask.owner=profile
+            skill.save()
+            return redirect('account')
+
+    context={
+        'form':form
+    }
+
+
+    return render(request,'project/projectForm.html',context)
+
+def deleteSkill(request,pk):
+    profile=request.user.profile
+    skill=profile.skill_set.get(id=pk)
+
+    if request.method == 'POST':
+        skill.delete()
+        return redirect('account')
+
+
+    context= {
+        'object':skill
+    }
+
+    return render(request ,'project/delete.html',context)

@@ -5,13 +5,13 @@
     <form action="#" method="POST">
     {% csrf_token %}
     <p>Ary you sure you went to delete "{{ object }}"?</p>
-    <button>
-         <a href="{% url 'projects' %}">
+    <button class="btn btn--sub">
+         <a href="{% url 'account' %}">
              Go Back
     </a>
     </button>
 
-    <input type="submit" value="confirm">
+    <input type="submit" value="confirm" class="btn btn--sub">
     </form>
 
 {% endblock %}
