@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile ,Skill
 from django.contrib import messages
+from django.db.models import Q
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm ,EditAccountForm ,SkillForm
 # Create your views here.
@@ -65,9 +66,20 @@ def registerUser(request):
     return render(request,'users/logInandRegistertionPage.html',context)
 
 def profile(requset):
-    profiles=Profile.objects.all()
+    search_query='' # we defind the value called search query that in the form of serach anem
+
+    if requset.GET.get('search_query'): # we cheack if that is a get requsest
+        search_query=requset.GET.get('search_query')
+        # print(f"Search: {search_query}")
+
+    skills=Skill.objects.filter(name__icontains=search_query)
+
+    # profiles=Profile.objects.all()
+    profiles = Profile.objects.distinct().filter(
+        Q(name__icontains=search_query)| Q(headline__icontains=search_query)|Q(skill__in=skills))
     context={
-     "profiles":profiles
+     "profiles":profiles,
+     "search_query":search_query,
     }
     return render(requset,'users/profile.html',context)
 
