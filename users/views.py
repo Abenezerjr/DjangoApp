@@ -19,21 +19,22 @@ def loginPage(request):
     if request.method=="POST":
         username=request.POST['username']
         password=request.POST['password']
-        try:
-            user=User.objects.get(username=username,password=password)
-        except:
-            messages.error(request,'Username does not exist')
 
+        if not username or not password:
+            messages.error(request, 'User name is does not exist')
+            return render(request,'users/logInandRegistertionPage.html')
+
+            user=User.objects.get(username=username,password=password)
 
         user=authenticate(request,username=username,password=password)
 
         if user is not None:
             login(request,user) # this create session in the database get that session and add in the browther coockis
-            print('User is sccsessfulliy login')
+            messages.success(request,'User is successfully login')
             return redirect('profile')
 
         else:
-            messages.error(request,"User name or password in correct")
+            messages.error(request,"Username or password is  icorrect")
 
 
     return render(request,'users/logInandRegistertionPage.html')
@@ -212,3 +213,7 @@ def sentMassage(request,pk):
     }
 
     return render(request,'project/projectForm.html',context)
+
+
+# ToDO 1#Render end viwe massge Or CURD Opration
+# TODO 2# working with DRF
