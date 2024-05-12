@@ -176,7 +176,10 @@ def deleteSkill(request,pk):
 
 
     context= {
-        'object':skill
+        'object':skill,
     }
 
     return render(request ,'project/delete.html',context)
+
+def sentMassage(request):
+    return render(request,'project/projectForm.html')
