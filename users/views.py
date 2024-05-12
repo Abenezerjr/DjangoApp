@@ -7,7 +7,7 @@ from django.contrib import messages
 # from django.db.models import Q
 from .utils import searchProfile
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserCreationForm ,EditAccountForm ,SkillForm
+from .forms import CustomUserCreationForm ,EditAccountForm ,SkillForm ,MessageForm
 # Create your views here.
 
 
@@ -181,5 +181,34 @@ def deleteSkill(request,pk):
 
     return render(request ,'project/delete.html',context)
 
-def sentMassage(request):
-    return render(request,'project/projectForm.html')
+def sentMassage(request,pk):
+    recipient=Profile.objects.get(id=pk) # find the recipient in the datat base
+    form=MessageForm() # creat form
+    try:
+        sender=request.user.profile # try to find the sender is in user profile or is the sender is creatd a profile
+    except:
+        sender=None
+
+    if request.method == "POST":
+        form=MessageForm(request.POST)
+        if form.is_valid():
+            massage=form.save(commit=False)
+            massage.sender=sender
+            massage.recipient=recipient
+
+            if sender:
+                massage.name=sender.name
+                massage.email=sender.email
+            massage.save()
+
+            messages.success(request,'Your massage is suvvfully deliverd!')
+            print('it send in the data base')
+            return redirect('userProfile',pk=recipient.id)
+
+
+    context={
+        "recipient":recipient,
+        'form':form,
+    }
+
+    return render(request,'project/projectForm.html',context)

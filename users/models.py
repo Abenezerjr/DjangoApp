@@ -44,7 +44,7 @@ class Skill(models.Model):
         return self.name
 
 class Massage(models.Model):
-    sender=models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True,blank=True)
+    sender=models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True)
     recipient=models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True,related_name="massages")
     name=models.CharField(max_length=200,null=True,blank=True)
     email=models.EmailField(max_length=300,null=True,blank=True)
