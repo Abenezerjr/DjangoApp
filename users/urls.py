@@ -15,4 +15,5 @@ urlpatterns=[
     path('delete-skill/<str:pk>',views.deleteSkill,name='deleteSkill'),
     path('user-profile/<str:pk>',views.userProfile,name='userProfile'),
     path('send-massage/<str:pk>',views.sentMassage,name='sandMassage'),
+    path('inbox/',views.Inbox,name='inbox')
 ]

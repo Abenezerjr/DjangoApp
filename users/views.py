@@ -2,7 +2,7 @@ from django.shortcuts import render ,  redirect
 from django.contrib.auth import login , authenticate ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Profile ,Skill
+from .models import Profile ,Skill ,Massage
 from django.contrib import messages
 # from django.db.models import Q
 from .utils import searchProfile
@@ -215,5 +215,14 @@ def sentMassage(request,pk):
     return render(request,'project/projectForm.html',context)
 
 
-# ToDO 1#Render end viwe massge Or CURD Opration
-# TODO 2# working with DRF
+
+def Inbox(request):
+    profile=request.user.profile
+    send_messages=profile.massages.all()
+    unreadcount=send_messages.filter(is_read=False).count()
+
+    context={
+        "send_messages":send_messages,
+        'unreadcount':unreadcount
+    }
+    return render(request,'users/inbox.html',context)
