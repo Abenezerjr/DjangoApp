@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'project.apps.ProjectConfig', # register the aproject app in order to awere django what we are doing
     'users.apps.UsersConfig',
+    'rest_framework',
 
 ]
 
